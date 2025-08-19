@@ -8,10 +8,4 @@ name = "pwos"
 test = false
 bench = false
 
-[profile.dev]
-panic = "abort"
-
-[profile.release]
-panic = "abort"
-
 [dependencies]
