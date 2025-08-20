@@ -1,3 +1,6 @@
+use core::fmt::{self, write};
+use volatile::Volatile;
+
 #[allow(dead_code)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 #[repr(u8)]
@@ -40,8 +43,6 @@ struct ScreenChar {
 
 const BUFFER_HEIGHT: usize = 25;
 const BUFFER_WIDTH: usize = 80;
-
-use volatile::Volatile;
 
 #[repr(transparent)]
 struct Buffer {
@@ -92,7 +93,15 @@ impl Writer {
     }
 }
 
+impl fmt::Write for Writer {
+    fn write_str(&mut self, s: &str) -> fmt::Result {
+        self.write_string(s);
+        Ok(())
+    }
+}
+
 pub fn print_something() {
+    use core::fmt::Write;
     let mut writer = Writer {
         column_position: 0,
         color_code: ColorCode::new(Color::Yellow, Color::Black),
@@ -101,8 +110,7 @@ pub fn print_something() {
         buffer: unsafe { &mut *(753664 as *mut Buffer) },
     };
 
-    writer.write_byte(b'M');
-    writer.write_string("erhaba ");
-    writer.write_string("benim adım");
-    writer.write_string(" Arda :)");
+    writer.write_byte(0xf4);
+    writer.write_byte(0xf5);
+    write!(writer, "Merhaba, benim adım {}!", "Arda").unwrap();
 }
