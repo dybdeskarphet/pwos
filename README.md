@@ -11,6 +11,12 @@ p(atch)w(ork)os is a minimal toy operating system written in Rust. Built for fun
 * Written in pure Rust (`no_std`)
 * Just enough to say "it works"
 
+## How does it look?
+
+<img height="300" src="./assets/2025-08-21.png"/>
+
+As you can see, not much is happening.
+
 ## Dependencies
 
 - [`bootimage=0.10.3`](https://crates.io/crates/bootimage) in the `$PATH`
