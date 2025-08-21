@@ -121,31 +121,27 @@ impl fmt::Write for Writer {
     }
 }
 
-pub fn print_something() {
-    use core::fmt::Write;
-    let mut writer = Writer {
-        column_position: 0,
-        color_code: ColorCode::new(Color::Yellow, Color::Black),
-        // Fuck you, figure out the below integer,
-        // it was the hardest thing for me to
-        // understand what the fuck was happneing down there.
-        buffer: unsafe { &mut *(753664 as *mut Buffer) },
-    };
-
-    writer.write_byte(0xf4);
-    writer.write_byte(0xf5);
-    write!(
-        writer,
-        "Merhaba, benim adım {}!\nBen 23 yaşındayım.",
-        "Arda"
-    )
-    .unwrap();
-}
-
 lazy_static! {
     pub static ref WRITER: Mutex<Writer> = Mutex::new(Writer {
         column_position: 0,
         color_code: ColorCode::new(Color::LightRed, Color::Black),
         buffer: unsafe { &mut *(0xb8000 as *mut Buffer) },
     });
+}
+
+#[macro_export]
+macro_rules! print {
+    ($($arg:tt)*) => ($crate::vga_buffer::_print(format_args!($($arg)*)))
+}
+
+#[macro_export]
+macro_rules! println {
+    () => ($crate::print!("\n"));
+    ($($arg:tt)*) => ($crate::print!("{}\n", format_args!($($arg)*)));
+}
+
+#[doc(hidden)]
+pub fn _print(args: fmt::Arguments) {
+    use core::fmt::Write;
+    WRITER.lock().write_fmt(args).unwrap();
 }
