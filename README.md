@@ -1,7 +1,9 @@
 # 🩹 pwos 
 
-![Rust](https://img.shields.io/badge/rust-nightly-blue?logo=rust) ![GitHub License](https://img.shields.io/github/license/dybdeskarphet/pwos) ![x86_64](https://img.shields.io/badge/platform-x86__64-lightgrey) ![Build Test](https://img.shields.io/github/actions/workflow/status/dybdeskarphet/pwos/rust.yml
-)
+![Rust](https://img.shields.io/badge/rust-nightly-blue?logo=rust) ![GitHub License](https://img.shields.io/github/license/dybdeskarphet/pwos) ![x86_64](https://img.shields.io/badge/platform-x86__64-lightgrey) ![Build Test](https://img.shields.io/github/actions/workflow/status/dybdeskarphet/pwos/rust.yml)
+
+> [!NOTE]
+> It is not finished yet, but you're free to do whatever you want with it.
 
 p(atch)w(ork)os is a minimal toy operating system written in Rust. Built for fun, learning, and breaking stuff on purpose.
 
